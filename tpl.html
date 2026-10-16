@@ -46,7 +46,6 @@ footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
 <div class="hint">Tap or swipe to turn the page</div>
 <a class="alltins" href="#all">ALL TINS ↓</a>
 <section id="all"><h2>ALL TINS, RANKED</h2><table>{{ROWS}}</table></section>
-<footer>Stamped in Alaska 🐟</footer>
 <script>
 const leaves=[...document.querySelectorAll('.leaf')],dots=[...document.querySelectorAll('.dot')],N=leaves.length;let cur=0;
 function show(i){cur=Math.max(0,Math.min(N-1,i));leaves.forEach((l,k)=>{l.classList.toggle('turned',k<cur);
