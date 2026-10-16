@@ -26,7 +26,6 @@ header p{margin:6px 0 0;opacity:.7;font-size:14px;letter-spacing:.05em}
 .dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:rgba(244,238,221,.3);cursor:pointer}
 .dot.on{background:var(--gold)}
 .hint{text-align:center;font-size:13px;opacity:.55;margin:-6px 0 10px}
-.alltins{display:block;margin:6px auto 0;text-align:center;color:var(--gold);font-size:14px;letter-spacing:.2em;text-decoration:none}
 section{max-width:620px;margin:34px auto 50px;padding:0 14px}
 h2{color:var(--gold);font-weight:normal;letter-spacing:.25em;text-align:center;font-size:18px}
 table{width:100%;border-collapse:collapse;background:var(--paper);color:#1c2a40;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
@@ -44,7 +43,6 @@ footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
 </div></div>
 <div class="nav"><button class="arrow" id="prev" aria-label="Previous page">‹</button>{{DOTS}}<button class="arrow" id="next" aria-label="Next page">›</button></div>
 <div class="hint">Tap or swipe to turn the page</div>
-<a class="alltins" href="#all">ALL TINS ↓</a>
 <section id="all"><h2>ALL TINS, RANKED</h2><table>{{ROWS}}</table></section>
 <script>
 const leaves=[...document.querySelectorAll('.leaf')],dots=[...document.querySelectorAll('.dot')],N=leaves.length;let cur=0;

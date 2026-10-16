@@ -17,6 +17,7 @@ conv('passport_cover.png', 'cover')
 pages = [('cover', 'Tinned Fish Passport — cover')]
 for key, (brand, items) in data.items():
     conv(f'passport_{key}.png', key); pages.append((key, f'{brand} visa page'))
+conv('passport_back.png', 'back'); pages.append(('back', 'Tinned Fish Passport — back cover'))  # always last
 
 e = html.escape
 leaves = []

@@ -3,7 +3,7 @@
 # Usage: /workspace/passport-site/build.sh        (add --no-deploy to only build)
 set -euo pipefail
 SITE="$(cd "$(dirname "$0")" && pwd)"; STAMPS="${STAMPS_DIR:-/workspace/stamps}"
-(cd "$STAMPS" && python3 passport.py --pages)
+(cd "$STAMPS" && python3 passport.py --pages --back)
 python3 "$SITE/gen.py"
 [[ "${1:-}" == "--no-deploy" ]] && { echo "built (not deployed): $SITE/index.html"; exit 0; }
 cd "$SITE"; touch .nojekyll
