@@ -1,0 +1,67 @@
+{
+  "brand_wildfish": [
+    "WILDFISH CANNERY",
+    [
+      [
+        "Smoked King Salmon",
+        10
+      ],
+      [
+        "Smoked Sockeye",
+        9
+      ],
+      [
+        "Smoked Coho",
+        6
+      ],
+      [
+        "Pacific Cod Peperonata",
+        6
+      ]
+    ]
+  ],
+  "brand_fishwife": [
+    "FISHWIFE",
+    [
+      [
+        "Smoked Rainbow Trout",
+        10
+      ],
+      [
+        "Smoked Rainbow Trout with Red Chimichurri",
+        8
+      ],
+      [
+        "Smoked Salmon",
+        9
+      ]
+    ]
+  ],
+  "brand_traderjoes": [
+    "TRADER JOE'S",
+    [
+      [
+        "Smoked Trout",
+        8
+      ]
+    ]
+  ],
+  "brand_josegourmet": [
+    "JOSÉ GOURMET",
+    [
+      [
+        "Smoked Small Mackerel in Olive Oil",
+        4
+      ]
+    ]
+  ],
+  "brand_kersen": [
+    "KERSEN",
+    [
+      [
+        "Boneless Kipper Fillets",
+        6
+      ]
+    ]
+  ]
+}
