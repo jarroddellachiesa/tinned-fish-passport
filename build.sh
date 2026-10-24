@@ -6,7 +6,9 @@
 #        add --no-deploy to any of the above to build without pushing
 # Restore after a box reset:  git clone https://github.com/jarroddellachiesa/tinned-fish-passport /workspace/passport-site
 #                             && cp -r /workspace/passport-site/src/stamps /workspace/stamps
+# NOTE: never delete CNAME (custom domain tinnedfishpassport.dellachiesa.us); icons are made by icons/make_icons.py.
 set -euo pipefail
+[[ -f "$(dirname "$0")/CNAME" ]] || { echo "CNAME missing - refusing to deploy"; exit 1; }
 SITE="$(cd "$(dirname "$0")" && pwd)"; STAMPS="${STAMPS_DIR:-/workspace/stamps}"
 RENDER=(--pages --back); DEPLOY=1
 for a in "$@"; do case "$a" in
