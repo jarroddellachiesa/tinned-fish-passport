@@ -26,3 +26,6 @@ git add -A
 git commit -qm "Update passport $(date '+%Y-%m-%d %H:%M')" || echo "no changes to commit"
 git push -q origin main
 echo "deployed: https://tinnedfishpassport.dellachiesa.us/ (live in ~1 min)"
+# Drive backup: stage zip for upload to Drive "DellaChiesa.us Backups/Tinned Fish Passport" (replace old copy + brands.json)
+python3 "$SITE/make_backup_zip.py" /workspace/passport-drive-backup.zip && cp "$STAMPS/brands.json" /workspace/passport-drive-brands.json
+echo "DRIVE BACKUP NEEDED: upload /workspace/passport-drive-backup.zip (as tinned-fish-passport-backup.zip) + brands.json to Drive folder 1gGJOflfr-4ro8QMnV9FroWhKwzFqgHzH via user-Google-drive--personal, trash the older copies"
