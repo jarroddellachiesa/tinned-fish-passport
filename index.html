@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Tinned Fish Passport</title>
-<meta name="description" content="11 tins from 6 brands, stamped and rated.">
+<meta name="description" content="12 tins from 6 brands, stamped and rated.">
 <meta property="og:title" content="Tinned Fish Passport"><meta property="og:image" content="img/cover.jpg">
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -54,7 +54,7 @@ tr:nth-child(even) td{background:#efe7d1}
 footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
 @media (prefers-reduced-motion:reduce){.leaf{transition:none}}
 </style></head><body>
-<header><h1>TINNED FISH PASSPORT</h1><p>11 tins · 6 brands</p></header>
+<header><h1>TINNED FISH PASSPORT</h1><p>12 tins · 6 brands</p></header>
 <div id="viewer"><button class="fsclose" id="fsclose" aria-label="Exit full screen">×</button>
 <div class="stage"><div class="book" id="book">
 <div class="leaf" style="z-index:8"><div class="front"><picture><source srcset="img/cover.webp" type="image/webp"><img src="img/cover.jpg" alt="Tinned Fish Passport — cover" width="900" height="1250"  draggable="false"></picture></div><div class="back"></div></div>
@@ -77,10 +77,11 @@ footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
 <tr><td class="rk">5</td><td><b>Smoked Rainbow Trout with Red Chimichurri</b><span>Fishwife</span></td><td class="rt">8<small>/10</small></td></tr>
 <tr><td class="rk">5</td><td><b>Smoked Trout</b><span>Trader Joe&#x27;S</span></td><td class="rt">8<small>/10</small></td></tr>
 <tr><td class="rk">7</td><td><b>Octopus in Olive Oil</b><span>La Barca</span></td><td class="rt">7<small>/10</small></td></tr>
-<tr><td class="rk">8</td><td><b>Boneless Kipper Fillets</b><span>Kersen</span></td><td class="rt">6<small>/10</small></td></tr>
-<tr><td class="rk">8</td><td><b>Pacific Cod Peperonata</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
-<tr><td class="rk">8</td><td><b>Smoked Coho</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
-<tr><td class="rk">11</td><td><b>Smoked Small Mackerel in Olive Oil</b><span>José Gourmet</span></td><td class="rt">4<small>/10</small></td></tr></table></section>
+<tr><td class="rk">7</td><td><b>Smoked Black Cod in Extra Virgin Olive Oil</b><span>Wildfish Cannery</span></td><td class="rt">7<small>/10</small></td></tr>
+<tr><td class="rk">9</td><td><b>Boneless Kipper Fillets</b><span>Kersen</span></td><td class="rt">6<small>/10</small></td></tr>
+<tr><td class="rk">9</td><td><b>Pacific Cod Peperonata</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
+<tr><td class="rk">9</td><td><b>Smoked Coho</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
+<tr><td class="rk">12</td><td><b>Smoked Small Mackerel in Olive Oil</b><span>José Gourmet</span></td><td class="rt">4<small>/10</small></td></tr></table></section>
 <script>
 const leaves=[...document.querySelectorAll('.leaf')],dots=[...document.querySelectorAll('.dot')],N=leaves.length;let cur=0;
 function show(i){cur=Math.max(0,Math.min(N-1,i));leaves.forEach((l,k)=>{l.classList.toggle('turned',k<cur);
