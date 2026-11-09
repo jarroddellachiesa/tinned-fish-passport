@@ -55,6 +55,11 @@ td b{font-weight:600}.rk{width:44px;text-align:center;color:#8a7a55;font-size:18
 .rt{text-align:right;color:var(--red);font-weight:bold;font-size:22px;white-space:nowrap;font-family:Helvetica,Arial,sans-serif}.rt small{font-size:12px;opacity:.7}
 tr:nth-child(even) td{background:#efe7d1}
 tr.tin-row{cursor:pointer}tr.tin-row:hover td{background:#e6dcc0}tr.tin-row:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+td span.club,.club{display:inline-block;margin-top:6px;margin-right:6px;padding:2px 8px;border-radius:999px;border:1px solid rgba(34,64,122,.35);color:var(--ink);font:10px/1.3 Helvetica,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;background:rgba(34,64,122,.08);width:auto}
+.legend{text-align:center;font-size:12px;opacity:.65;margin:10px 0 0;letter-spacing:.04em}
+.legend .club{margin:0 0 0 6px;vertical-align:middle}
+#lightbox .origin{display:none;margin:8px 0 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:.8;font-family:Helvetica,Arial,sans-serif}
+#lightbox .origin.show{display:block}
 footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
 #lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(5,8,15,.82);align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
 #lightbox.open{display:flex}
@@ -81,7 +86,7 @@ footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
 </div>
 <div class="hint">Tap a stamp for the tin · swipe to turn the page</div>
 <button class="fsbtn" id="fsbtn" aria-label="Full screen"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg>FULL SCREEN</button>
-<section id="all"><h2>ALL TINS, RANKED</h2><table>{{ROWS}}</table></section>
+<section id="all"><h2>ALL TINS, RANKED</h2><table>{{ROWS}}</table><p class="legend">Tins marked <span class="club">Tin Fish Club</span> arrived via the club</p></section>
 <div id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
   <div class="card">
     <button class="x" id="lb-x" aria-label="Close">×</button>
@@ -90,6 +95,7 @@ footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
     <h3 id="lb-title"></h3>
     <div class="brand" id="lb-brand"></div>
     <div class="rating" id="lb-rating"></div>
+    <div class="origin" id="lb-origin">From Tin Fish Club</div>
     <a class="buy" id="lb-buy" href="#" target="_blank" rel="noopener noreferrer">REORDER</a>
   </div>
 </div>
@@ -119,7 +125,8 @@ fsbtn.onclick=enterFs;fsclose.onclick=exitFs;
 const lb=document.getElementById('lightbox'),lbPhoto=document.getElementById('lb-photo'),
  lbFall=document.getElementById('lb-fallback'),lbSeal=document.getElementById('lb-seal'),
  lbTitle=document.getElementById('lb-title'),lbBrand=document.getElementById('lb-brand'),
- lbRating=document.getElementById('lb-rating'),lbBuy=document.getElementById('lb-buy');
+ lbRating=document.getElementById('lb-rating'),lbOrigin=document.getElementById('lb-origin'),
+ lbBuy=document.getElementById('lb-buy');
 function parseTin(el){try{return JSON.parse(el.getAttribute('data-tin'))}catch(err){return null}}
 function openTin(meta){
  if(!meta)return;
@@ -136,6 +143,7 @@ function openTin(meta){
   lbPhoto.alt=(meta.fish||'')+' packaging';
   lbPhoto.src=meta.photo;
  }
+ if(meta.origin==='Tin Fish Club'){lbOrigin.classList.add('show')}else{lbOrigin.classList.remove('show')}
  if(meta.url&&meta.button){
   lbBuy.href=meta.url;lbBuy.textContent=meta.button.toUpperCase();lbBuy.classList.add('show');
  }else{lbBuy.classList.remove('show');lbBuy.removeAttribute('href')}

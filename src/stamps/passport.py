@@ -398,14 +398,15 @@ def icon(kind, cx, cy, w, c):
     return ''
 
 
-def shp_circle(brand, fish, r, c, ic, uid):
+def shp_circle(brand, fish, r, c, ic, uid, origin=None):
     R = 112
+    bottom = 'TIN FISH CLUB' if origin == 'Tin Fish Club' else 'TINNED FISH PASSPORT'
     g = [f'<circle r="{R}" fill="none" stroke="{c}" stroke-width="5"/>',
          f'<circle r="{R-8}" fill="none" stroke="{c}" stroke-width="1.6"/>',
          f'<circle r="80" fill="none" stroke="{c}" stroke-width="2.6"/>',
          f'<defs><path id="{uid}t" d="M-88,0 A88,88 0 0 1 88,0"/><path id="{uid}b" d="M-98,0 A98,98 0 0 0 98,0"/></defs>',
          arc_text(brand, f'{uid}t', 0.70 * math.pi * 88, 16, c),
-         arc_text('TINNED FISH PASSPORT', f'{uid}b', 0.62 * math.pi * 98, 10.5, c, 2),
+         arc_text(bottom, f'{uid}b', 0.62 * math.pi * 98, 10.5, c, 2),
          f'<polygon points="{star_pts(-92, 0, 6, 2.4, 5)}" fill="{c}"/><polygon points="{star_pts(92, 0, 6, 2.4, 5)}" fill="{c}"/>',
          species_icon(fish, 0, -51, 66, c),
          name_block(fish, 0, 0, 134, 58, 30, c),
@@ -413,14 +414,14 @@ def shp_circle(brand, fish, r, c, ic, uid):
     return ''.join(g), (-R - 3, -R - 3, R + 3, R + 3)
 
 
-def shp_oval(brand, fish, r, c, ic, uid):
+def shp_oval(brand, fish, r, c, ic, uid, origin=None):
     a, b = 160, 106
     g = [f'<ellipse rx="{a}" ry="{b}" fill="none" stroke="{c}" stroke-width="5"/>',
          f'<ellipse rx="{a-8}" ry="{b-8}" fill="none" stroke="{c}" stroke-width="1.6"/>',
          f'<ellipse rx="126" ry="74" fill="none" stroke="{c}" stroke-width="2.6"/>',
          f'<defs><path id="{uid}t" d="M-136,0 A136,82 0 0 1 136,0"/><path id="{uid}b" d="M-143,0 A143,90 0 0 0 143,0"/></defs>',
          arc_text(brand, f'{uid}t', 250, 16, c),
-         arc_text('TINNED FISH PASSPORT', f'{uid}b', 210, 10.5, c, 2),
+         arc_text('TIN FISH CLUB' if origin == 'Tin Fish Club' else 'TINNED FISH PASSPORT', f'{uid}b', 210, 10.5, c, 2),
          f'<polygon points="{star_pts(-139, 0, 6, 2.4, 5)}" fill="{c}"/><polygon points="{star_pts(139, 0, 6, 2.4, 5)}" fill="{c}"/>',
          icon(ic, 0, -50, 64, c),
          name_block(fish, 0, -1, 204, 56, 34, c),
@@ -428,7 +429,7 @@ def shp_oval(brand, fish, r, c, ic, uid):
     return ''.join(g), (-a - 3, -b - 3, a + 3, b + 3)
 
 
-def shp_rect(brand, fish, r, c, ic, uid):
+def shp_rect(brand, fish, r, c, ic, uid, origin=None):
     w2, h2 = 160, 98
     g = [f'<rect x="{-w2}" y="{-h2}" width="{2*w2}" height="{2*h2}" rx="18" fill="none" stroke="{c}" stroke-width="5"/>',
          f'<rect x="{-w2+9}" y="{-h2+9}" width="{2*w2-18}" height="{2*h2-18}" rx="11" fill="none" stroke="{c}" stroke-width="1.6"/>',
@@ -441,7 +442,7 @@ def shp_rect(brand, fish, r, c, ic, uid):
     return ''.join(g), (-w2 - 3, -h2 - 3, w2 + 3, h2 + 3)
 
 
-def shp_tin(brand, fish, r, c, ic, uid):
+def shp_tin(brand, fish, r, c, ic, uid, origin=None):
     w2, h2 = 145, 88
     g = [f'<rect x="{-w2}" y="{-h2}" width="{2*w2}" height="{2*h2}" rx="56" fill="none" stroke="{c}" stroke-width="9"/>',
          f'<rect x="{-w2+18}" y="{-h2+18}" width="{2*w2-36}" height="{2*h2-36}" rx="40" fill="none" stroke="{c}" stroke-width="2.6" stroke-dasharray="7 5"/>',
@@ -460,7 +461,7 @@ def _hex(sx, sy):
     return ' '.join(f'{f(x*sx)},{f(y*sy)}' for x, y in [(-168, 0), (-108, -104), (108, -104), (168, 0), (108, 104), (-108, 104)])
 
 
-def shp_hex(brand, fish, r, c, ic, uid):
+def shp_hex(brand, fish, r, c, ic, uid, origin=None):
     g = [f'<polygon points="{_hex(1, 1)}" fill="none" stroke="{c}" stroke-width="5" stroke-linejoin="round"/>',
          f'<polygon points="{_hex(.92, .91)}" fill="none" stroke="{c}" stroke-width="1.6" stroke-linejoin="round"/>',
          straight(brand, 0, -66, 206, 15, c),
@@ -480,7 +481,7 @@ def _shield(k, dy=0):
             f'C{s(10)} {s(11)} {s(12)} Z')
 
 
-def shp_shield(brand, fish, r, c, ic, uid):
+def shp_shield(brand, fish, r, c, ic, uid, origin=None):
     g = [f'<path d="{_shield(1)}" fill="none" stroke="{c}" stroke-width="5" stroke-linejoin="round"/>',
          f'<path d="{_shield(.915, -1)}" fill="none" stroke="{c}" stroke-width="1.6" stroke-linejoin="round"/>',
          straight(brand, 0, -82, 176, 14, c, 2),
@@ -709,10 +710,27 @@ def stamp_layout(key, slot, fish=None, rating=None):
     return cx, cy, rr, ang, ox, oy, shape, ink, ic, hs, (bx0, by0, bx1, by1)
 
 
+_PACKAGING = None
+
+
+def load_packaging():
+    global _PACKAGING
+    if _PACKAGING is None:
+        pkg = os.path.join(HERE, 'packaging.json')
+        _PACKAGING = json.load(open(pkg)) if os.path.exists(pkg) else {}
+    return _PACKAGING
+
+
+def tin_origin(key, fish):
+    """Optional provenance tag, e.g. 'Tin Fish Club' from packaging.json."""
+    entry = (load_packaging().get(key) or {}).get(fish) or {}
+    return entry.get('origin') or ''
+
+
 def place_stamp(key, name, slot, fish, r):
     """Deterministic placement/styling for entry number `slot` of a brand."""
     cx, cy, _rr, ang, ox, oy, shape, ink, ic, hs, _bb = stamp_layout(key, slot)
-    body, _ = SHAPE_FN[shape](name, fish, r, ink, ic, f's{slot}')
+    body, _ = SHAPE_FN[shape](name, fish, r, ink, ic, f's{slot}', origin=tin_origin(key, fish))
     op = 0.84 + (hs % 7) / 70
     fid = f'ink{slot}'
     return (f'<defs>{ink_filter(fid, (hs % 500) + 3)}</defs>'

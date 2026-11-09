@@ -58,6 +58,7 @@ def tin_meta(brand_key, fish, rating, brand_name):
     if file_:
         base = os.path.basename(file_)
         photo = f'img/packaging/{base}'
+    origin = entry.get('origin') or ''
     return {
         'brand_key': brand_key,
         'brand': brand_name,
@@ -66,6 +67,7 @@ def tin_meta(brand_key, fish, rating, brand_name):
         'photo': photo,
         'url': entry.get('url') or '',
         'button': entry.get('button') or ('Reorder' if entry.get('url') else ''),
+        'origin': origin,
     }
 
 
@@ -111,10 +113,12 @@ for n, (r, b, f, k) in enumerate(rows, 1):
         rank, prev = n, r
     meta = tin_meta(k, f, r, b)
     payload = e(json.dumps(meta, ensure_ascii=False))
+    club = meta.get('origin') == 'Tin Fish Club'
+    badge = '<span class="club">Tin Fish Club</span>' if club else ''
     trs.append(
         f'<tr class="tin-row" data-tin="{payload}" tabindex="0" role="button" '
         f'aria-label="View packaging for {e(f)}">'
-        f'<td class="rk">{rank}</td><td><b>{e(f)}</b><span>{e(b.title())}</span></td>'
+        f'<td class="rk">{rank}</td><td><b>{e(f)}</b><span>{e(b.title())}</span>{badge}</td>'
         f'<td class="rt">{r}<small>/10</small></td></tr>'
     )
 

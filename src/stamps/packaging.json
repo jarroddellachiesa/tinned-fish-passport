@@ -64,7 +64,8 @@
       "file": "packaging/kersen-kipper.webp",
       "url": "https://kersen.myshopify.com/products/wild-canadian-naturally-hardwood-smoked-kipper-fillets-190g-single-cans",
       "button": "Reorder",
-      "source": "kersen.myshopify.com product packaging photo"
+      "source": "kersen.myshopify.com product packaging photo",
+      "origin": "Tin Fish Club"
     }
   },
   "brand_josegourmet": {
@@ -72,7 +73,8 @@
       "file": "packaging/jose-mackerel.webp",
       "url": "https://www.myportuguesemarket.com/products/jose-gourmet-small-mackerel-in-olive-oil",
       "button": "Reorder",
-      "source": "myportuguesemarket.com product photo (Jos\u00e9 Gourmet's own site lists Small Mackerel in Olive Oil but not the smoked SKU)"
+      "source": "myportuguesemarket.com product photo (José Gourmet's own site lists Small Mackerel in Olive Oil but not the smoked SKU)",
+      "origin": "Tin Fish Club"
     }
   },
   "brand_labarca": {
@@ -80,7 +82,8 @@
       "file": "packaging/labarca-octopus.webp",
       "url": "https://labarcaus.com/products/3-pack-octopus-in-olive-oil",
       "button": "Reorder",
-      "source": "labarcaus.com product packaging photo"
+      "source": "labarcaus.com product packaging photo",
+      "origin": "Tin Fish Club"
     }
   }
 }
