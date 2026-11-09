@@ -16,10 +16,15 @@ for a in "$@"; do case "$a" in
   *) echo "unknown option $a"; exit 2;; esac; done
 [[ ${#RENDER[@]} -gt 0 ]] && (cd "$STAMPS" && python3 passport.py "${RENDER[@]}")
 python3 "$SITE/gen.py"
-# back up the renderer source + data + logos + rendered PNGs into the repo
-mkdir -p "$SITE/src/stamps/logos"
+# back up the renderer source + data + logos + packaging + rendered PNGs into the repo
+mkdir -p "$SITE/src/stamps/logos" "$SITE/src/stamps/packaging"
 cp "$STAMPS"/{passport.py,brands.json,logos.json} "$STAMPS"/passport_*.png "$SITE/src/stamps/"
+[[ -f "$STAMPS/packaging.json" ]] && cp "$STAMPS/packaging.json" "$SITE/src/stamps/"
+[[ -f "$STAMPS/stamp_hotspots.json" ]] && cp "$STAMPS/stamp_hotspots.json" "$SITE/src/stamps/"
 find "$STAMPS/logos" -maxdepth 1 -type f \( -name '*.svg' -o -name '*.png' \) -exec cp {} "$SITE/src/stamps/logos/" \;
+if [[ -d "$STAMPS/packaging" ]]; then
+  find "$STAMPS/packaging" -maxdepth 1 -type f -name '*.webp' -exec cp {} "$SITE/src/stamps/packaging/" \;
+fi
 [[ $DEPLOY == 1 ]] || { echo "built (not deployed): $SITE/index.html"; exit 0; }
 cd "$SITE"; touch .nojekyll
 git add -A

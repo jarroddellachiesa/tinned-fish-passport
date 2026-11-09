@@ -1,0 +1,86 @@
+{
+  "brand_wildfish": {
+    "Smoked King Salmon": {
+      "file": "packaging/wildfish-king.webp",
+      "url": "https://wildfishcannery.com/products/smoked-king-salmon",
+      "button": "Reorder",
+      "source": "wildfishcannery.com product packaging photo"
+    },
+    "Smoked Sockeye": {
+      "file": "packaging/wildfish-sockeye.webp",
+      "url": "https://wildfishcannery.com/products/smoked-sockeye",
+      "button": "Reorder",
+      "source": "wildfishcannery.com product packaging photo"
+    },
+    "Smoked Coho": {
+      "file": "packaging/wildfish-coho.webp",
+      "url": "https://wildfishcannery.com/products/smoked-coho-salmon",
+      "button": "Reorder",
+      "source": "wildfishcannery.com product packaging photo"
+    },
+    "Pacific Cod Peperonata": {
+      "file": "packaging/wildfish-peperonata.webp",
+      "url": "https://wildfishcannery.com/products/pacific-cod-peperonata",
+      "button": "Reorder",
+      "source": "wildfishcannery.com product packaging photo"
+    },
+    "Smoked Black Cod in Extra Virgin Olive Oil": {
+      "file": "packaging/wildfish-blackcod.webp",
+      "url": "https://wildfishcannery.com/products/smoked-black-cod-in-extra-virgin-olive-oil",
+      "button": "Reorder",
+      "source": "wildfishcannery.com product packaging photo"
+    }
+  },
+  "brand_fishwife": {
+    "Smoked Rainbow Trout": {
+      "file": "packaging/fishwife-trout.webp",
+      "url": "https://eatfishwife.com/products/new-smoked-rainbow-trout-1-pack",
+      "button": "Reorder",
+      "source": "eatfishwife.com product packaging photo"
+    },
+    "Smoked Rainbow Trout with Red Chimichurri": {
+      "file": "packaging/fishwife-chimichurri.webp",
+      "url": "https://eatfishwife.com/products/smoked-rainbow-trout-with-chimmichurri-1-pack",
+      "button": "Reorder",
+      "source": "eatfishwife.com product packaging photo"
+    },
+    "Smoked Salmon": {
+      "file": "packaging/fishwife-salmon.webp",
+      "url": "https://eatfishwife.com/products/smoked-atlantic-salmon-1-pack",
+      "button": "Reorder",
+      "source": "eatfishwife.com Gold Label Smoked Salmon packaging photo"
+    }
+  },
+  "brand_traderjoes": {
+    "Smoked Trout": {
+      "file": "packaging/traderjoes-trout.webp",
+      "url": null,
+      "button": null,
+      "source": "WhatsGoodAtTraderJoes.com review photo of Farm Raised Smoked Trout Fillets tin (traderjoes.com PDP inaccessible; no online store)"
+    }
+  },
+  "brand_kersen": {
+    "Boneless Kipper Fillets": {
+      "file": "packaging/kersen-kipper.webp",
+      "url": "https://kersen.myshopify.com/products/wild-canadian-naturally-hardwood-smoked-kipper-fillets-190g-single-cans",
+      "button": "Reorder",
+      "source": "kersen.myshopify.com product packaging photo"
+    }
+  },
+  "brand_josegourmet": {
+    "Smoked Small Mackerel in Olive Oil": {
+      "file": "packaging/jose-mackerel.webp",
+      "url": "https://www.myportuguesemarket.com/products/jose-gourmet-small-mackerel-in-olive-oil",
+      "button": "Reorder",
+      "source": "myportuguesemarket.com product photo (Jos\u00e9 Gourmet's own site lists Small Mackerel in Olive Oil but not the smoked SKU)"
+    }
+  },
+  "brand_labarca": {
+    "Octopus in Olive Oil": {
+      "file": "packaging/labarca-octopus.webp",
+      "url": "https://labarcaus.com/products/3-pack-octopus-in-olive-oil",
+      "button": "Reorder",
+      "source": "labarcaus.com product packaging photo"
+    }
+  }
+}

@@ -28,6 +28,9 @@ header p{margin:6px 0 0;opacity:.7;font-size:14px;letter-spacing:.05em}
 .front::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,0) 7%,rgba(255,255,255,.04) 50%,rgba(0,0,0,.06));pointer-events:none}
 .back{transform:rotateY(180deg);background:linear-gradient(90deg,#e9e1cb,#f4eedd)}
 .leaf.turned{pointer-events:none}.leaf.gone{visibility:hidden}
+.hotspots{position:absolute;inset:0;z-index:2}
+.hotspot{position:absolute;transform:translate(-50%,-50%);border:0;padding:0;margin:0;border-radius:50%;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hotspot:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .nav{display:flex;align-items:center;justify-content:center;gap:14px;padding:16px}
 .nav .arrow{background:none;border:1px solid rgba(216,185,106,.6);color:var(--gold);width:42px;height:42px;border-radius:50%;font-size:20px;cursor:pointer}
 .nav .arrow:disabled{opacity:.3}
@@ -51,47 +54,75 @@ td span{display:block;font-size:12px;letter-spacing:.12em;color:var(--ink);text-
 td b{font-weight:600}.rk{width:44px;text-align:center;color:#8a7a55;font-size:18px}
 .rt{text-align:right;color:var(--red);font-weight:bold;font-size:22px;white-space:nowrap;font-family:Helvetica,Arial,sans-serif}.rt small{font-size:12px;opacity:.7}
 tr:nth-child(even) td{background:#efe7d1}
+tr.tin-row{cursor:pointer}tr.tin-row:hover td{background:#e6dcc0}tr.tin-row:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 footer{text-align:center;font-size:12px;opacity:.45;padding-bottom:30px}
+#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(5,8,15,.82);align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+#lightbox.open{display:flex}
+#lightbox .card{position:relative;background:var(--paper);color:#1c2a40;border-radius:14px;max-width:min(420px,96vw);width:100%;max-height:min(92dvh,920px);overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.55);padding:18px 18px 20px;text-align:center}
+#lightbox .x{position:absolute;top:8px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:#13294a;color:var(--gold);font-size:22px;cursor:pointer;line-height:1}
+#lightbox .photo{width:100%;aspect-ratio:1;object-fit:contain;background:#ebe3cd;border-radius:10px;display:block;margin:8px auto 14px}
+#lightbox .fallback{display:none;width:100%;aspect-ratio:1;border-radius:10px;margin:8px auto 14px;background:radial-gradient(circle at 50% 45%,#f7f1e0,#d9cdb0);align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--ink);font-family:Helvetica,Arial,sans-serif}
+#lightbox .fallback.show{display:flex}
+#lightbox .fallback .seal{width:96px;height:96px;border:3px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--red)}
+#lightbox h3{margin:0;font-size:clamp(16px,4.2vw,20px);letter-spacing:.02em}
+#lightbox .brand{margin:4px 0 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:.85;font-family:Helvetica,Arial,sans-serif}
+#lightbox .rating{margin:10px 0 0;font-size:28px;font-weight:700;color:var(--red);font-family:Helvetica,Arial,sans-serif}
+#lightbox .rating small{font-size:14px;opacity:.7}
+#lightbox .buy{display:none;margin:16px auto 0;background:#13294a;border:1px solid rgba(216,185,106,.7);color:var(--gold);font:14px Georgia,serif;letter-spacing:.14em;padding:10px 18px;border-radius:22px;cursor:pointer;text-decoration:none}
+#lightbox .buy.show{display:inline-block}
 @media (prefers-reduced-motion:reduce){.leaf{transition:none}}
 </style></head><body>
 <header><h1>TINNED FISH PASSPORT</h1><p>12 tins · 6 brands</p></header>
 <div id="viewer"><button class="fsclose" id="fsclose" aria-label="Exit full screen">×</button>
 <div class="stage"><div class="book" id="book">
 <div class="leaf" style="z-index:8"><div class="front"><picture><source srcset="img/cover.webp" type="image/webp"><img src="img/cover.jpg" alt="Tinned Fish Passport — cover" width="900" height="1250"  draggable="false"></picture></div><div class="back"></div></div>
-<div class="leaf" style="z-index:7"><div class="front"><picture><source srcset="img/brand_wildfish.webp" type="image/webp"><img src="img/brand_wildfish.jpg" alt="WILDFISH CANNERY visa page" width="900" height="1250"  draggable="false"></picture></div><div class="back"></div></div>
-<div class="leaf" style="z-index:6"><div class="front"><picture><source srcset="img/brand_fishwife.webp" type="image/webp"><img src="img/brand_fishwife.jpg" alt="FISHWIFE visa page" width="900" height="1250" loading=lazy draggable="false"></picture></div><div class="back"></div></div>
-<div class="leaf" style="z-index:5"><div class="front"><picture><source srcset="img/brand_traderjoes.webp" type="image/webp"><img src="img/brand_traderjoes.jpg" alt="TRADER JOE&#x27;S visa page" width="900" height="1250" loading=lazy draggable="false"></picture></div><div class="back"></div></div>
-<div class="leaf" style="z-index:4"><div class="front"><picture><source srcset="img/brand_kersen.webp" type="image/webp"><img src="img/brand_kersen.jpg" alt="KERSEN visa page" width="900" height="1250" loading=lazy draggable="false"></picture></div><div class="back"></div></div>
-<div class="leaf" style="z-index:3"><div class="front"><picture><source srcset="img/brand_josegourmet.webp" type="image/webp"><img src="img/brand_josegourmet.jpg" alt="JOSÉ GOURMET visa page" width="900" height="1250" loading=lazy draggable="false"></picture></div><div class="back"></div></div>
-<div class="leaf" style="z-index:2"><div class="front"><picture><source srcset="img/brand_labarca.webp" type="image/webp"><img src="img/brand_labarca.jpg" alt="LA BARCA visa page" width="900" height="1250" loading=lazy draggable="false"></picture></div><div class="back"></div></div>
+<div class="leaf" style="z-index:7"><div class="front"><picture><source srcset="img/brand_wildfish.webp" type="image/webp"><img src="img/brand_wildfish.jpg" alt="WILDFISH CANNERY visa page" width="900" height="1250"  draggable="false"></picture><div class="hotspots"><button type="button" class="hotspot" style="left:26.22%;top:29.09%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked King Salmon&quot;, &quot;rating&quot;: 10, &quot;photo&quot;: &quot;img/packaging/wildfish-king.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-king-salmon&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked King Salmon 10/10"></button><button type="button" class="hotspot" style="left:68.78%;top:47.20%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked Sockeye&quot;, &quot;rating&quot;: 9, &quot;photo&quot;: &quot;img/packaging/wildfish-sockeye.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-sockeye&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Sockeye 9/10"></button><button type="button" class="hotspot" style="left:30.56%;top:66.00%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked Coho&quot;, &quot;rating&quot;: 6, &quot;photo&quot;: &quot;img/packaging/wildfish-coho.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-coho-salmon&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Coho 6/10"></button><button type="button" class="hotspot" style="left:74.00%;top:83.49%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Pacific Cod Peperonata&quot;, &quot;rating&quot;: 6, &quot;photo&quot;: &quot;img/packaging/wildfish-peperonata.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/pacific-cod-peperonata&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Pacific Cod Peperonata 6/10"></button><button type="button" class="hotspot" style="left:72.56%;top:28.97%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked Black Cod in Extra Virgin Olive Oil&quot;, &quot;rating&quot;: 7, &quot;photo&quot;: &quot;img/packaging/wildfish-blackcod.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-black-cod-in-extra-virgin-olive-oil&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Black Cod in Extra Virgin Olive Oil 7/10"></button></div></div><div class="back"></div></div>
+<div class="leaf" style="z-index:6"><div class="front"><picture><source srcset="img/brand_fishwife.webp" type="image/webp"><img src="img/brand_fishwife.jpg" alt="FISHWIFE visa page" width="900" height="1250" loading=lazy draggable="false"></picture><div class="hotspots"><button type="button" class="hotspot" style="left:28.67%;top:29.19%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_fishwife&quot;, &quot;brand&quot;: &quot;FISHWIFE&quot;, &quot;fish&quot;: &quot;Smoked Rainbow Trout&quot;, &quot;rating&quot;: 10, &quot;photo&quot;: &quot;img/packaging/fishwife-trout.webp&quot;, &quot;url&quot;: &quot;https://eatfishwife.com/products/new-smoked-rainbow-trout-1-pack&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Rainbow Trout 10/10"></button><button type="button" class="hotspot" style="left:72.89%;top:46.32%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_fishwife&quot;, &quot;brand&quot;: &quot;FISHWIFE&quot;, &quot;fish&quot;: &quot;Smoked Rainbow Trout with Red Chimichurri&quot;, &quot;rating&quot;: 8, &quot;photo&quot;: &quot;img/packaging/fishwife-chimichurri.webp&quot;, &quot;url&quot;: &quot;https://eatfishwife.com/products/smoked-rainbow-trout-with-chimmichurri-1-pack&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Rainbow Trout with Red Chimichurri 8/10"></button><button type="button" class="hotspot" style="left:30.67%;top:65.20%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_fishwife&quot;, &quot;brand&quot;: &quot;FISHWIFE&quot;, &quot;fish&quot;: &quot;Smoked Salmon&quot;, &quot;rating&quot;: 9, &quot;photo&quot;: &quot;img/packaging/fishwife-salmon.webp&quot;, &quot;url&quot;: &quot;https://eatfishwife.com/products/smoked-atlantic-salmon-1-pack&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Salmon 9/10"></button></div></div><div class="back"></div></div>
+<div class="leaf" style="z-index:5"><div class="front"><picture><source srcset="img/brand_traderjoes.webp" type="image/webp"><img src="img/brand_traderjoes.jpg" alt="TRADER JOE&#x27;S visa page" width="900" height="1250" loading=lazy draggable="false"></picture><div class="hotspots"><button type="button" class="hotspot" style="left:30.67%;top:28.57%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_traderjoes&quot;, &quot;brand&quot;: &quot;TRADER JOE&#x27;S&quot;, &quot;fish&quot;: &quot;Smoked Trout&quot;, &quot;rating&quot;: 8, &quot;photo&quot;: &quot;img/packaging/traderjoes-trout.webp&quot;, &quot;url&quot;: &quot;&quot;, &quot;button&quot;: &quot;&quot;}" aria-label="Smoked Trout 8/10"></button></div></div><div class="back"></div></div>
+<div class="leaf" style="z-index:4"><div class="front"><picture><source srcset="img/brand_kersen.webp" type="image/webp"><img src="img/brand_kersen.jpg" alt="KERSEN visa page" width="900" height="1250" loading=lazy draggable="false"></picture><div class="hotspots"><button type="button" class="hotspot" style="left:29.33%;top:28.64%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_kersen&quot;, &quot;brand&quot;: &quot;KERSEN&quot;, &quot;fish&quot;: &quot;Boneless Kipper Fillets&quot;, &quot;rating&quot;: 6, &quot;photo&quot;: &quot;img/packaging/kersen-kipper.webp&quot;, &quot;url&quot;: &quot;https://kersen.myshopify.com/products/wild-canadian-naturally-hardwood-smoked-kipper-fillets-190g-single-cans&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Boneless Kipper Fillets 6/10"></button></div></div><div class="back"></div></div>
+<div class="leaf" style="z-index:3"><div class="front"><picture><source srcset="img/brand_josegourmet.webp" type="image/webp"><img src="img/brand_josegourmet.jpg" alt="JOSÉ GOURMET visa page" width="900" height="1250" loading=lazy draggable="false"></picture><div class="hotspots"><button type="button" class="hotspot" style="left:26.11%;top:29.05%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_josegourmet&quot;, &quot;brand&quot;: &quot;JOSÉ GOURMET&quot;, &quot;fish&quot;: &quot;Smoked Small Mackerel in Olive Oil&quot;, &quot;rating&quot;: 4, &quot;photo&quot;: &quot;img/packaging/jose-mackerel.webp&quot;, &quot;url&quot;: &quot;https://www.myportuguesemarket.com/products/jose-gourmet-small-mackerel-in-olive-oil&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Smoked Small Mackerel in Olive Oil 4/10"></button></div></div><div class="back"></div></div>
+<div class="leaf" style="z-index:2"><div class="front"><picture><source srcset="img/brand_labarca.webp" type="image/webp"><img src="img/brand_labarca.jpg" alt="LA BARCA visa page" width="900" height="1250" loading=lazy draggable="false"></picture><div class="hotspots"><button type="button" class="hotspot" style="left:29.33%;top:28.81%;width:26.89%;height:19.36%" data-tin="{&quot;brand_key&quot;: &quot;brand_labarca&quot;, &quot;brand&quot;: &quot;LA BARCA&quot;, &quot;fish&quot;: &quot;Octopus in Olive Oil&quot;, &quot;rating&quot;: 7, &quot;photo&quot;: &quot;img/packaging/labarca-octopus.webp&quot;, &quot;url&quot;: &quot;https://labarcaus.com/products/3-pack-octopus-in-olive-oil&quot;, &quot;button&quot;: &quot;Reorder&quot;}" aria-label="Octopus in Olive Oil 7/10"></button></div></div><div class="back"></div></div>
 <div class="leaf" style="z-index:1"><div class="front"><picture><source srcset="img/back.webp" type="image/webp"><img src="img/back.jpg" alt="Tinned Fish Passport — back cover" width="900" height="1250" loading=lazy draggable="false"></picture></div><div class="back"></div></div>
 </div></div>
 <div class="nav"><button class="arrow" id="prev" aria-label="Previous page">‹</button><button class="dot" aria-label="Page 0"></button><button class="dot" aria-label="Page 1"></button><button class="dot" aria-label="Page 2"></button><button class="dot" aria-label="Page 3"></button><button class="dot" aria-label="Page 4"></button><button class="dot" aria-label="Page 5"></button><button class="dot" aria-label="Page 6"></button><button class="dot" aria-label="Page 7"></button><button class="arrow" id="next" aria-label="Next page">›</button></div>
 </div>
-<div class="hint">Tap or swipe to turn the page</div>
+<div class="hint">Tap a stamp for the tin · swipe to turn the page</div>
 <button class="fsbtn" id="fsbtn" aria-label="Full screen"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg>FULL SCREEN</button>
-<section id="all"><h2>ALL TINS, RANKED</h2><table><tr><td class="rk">1</td><td><b>Smoked Rainbow Trout</b><span>Fishwife</span></td><td class="rt">10<small>/10</small></td></tr>
-<tr><td class="rk">1</td><td><b>Smoked King Salmon</b><span>Wildfish Cannery</span></td><td class="rt">10<small>/10</small></td></tr>
-<tr><td class="rk">3</td><td><b>Smoked Salmon</b><span>Fishwife</span></td><td class="rt">9<small>/10</small></td></tr>
-<tr><td class="rk">3</td><td><b>Smoked Sockeye</b><span>Wildfish Cannery</span></td><td class="rt">9<small>/10</small></td></tr>
-<tr><td class="rk">5</td><td><b>Smoked Rainbow Trout with Red Chimichurri</b><span>Fishwife</span></td><td class="rt">8<small>/10</small></td></tr>
-<tr><td class="rk">5</td><td><b>Smoked Trout</b><span>Trader Joe&#x27;S</span></td><td class="rt">8<small>/10</small></td></tr>
-<tr><td class="rk">7</td><td><b>Octopus in Olive Oil</b><span>La Barca</span></td><td class="rt">7<small>/10</small></td></tr>
-<tr><td class="rk">7</td><td><b>Smoked Black Cod in Extra Virgin Olive Oil</b><span>Wildfish Cannery</span></td><td class="rt">7<small>/10</small></td></tr>
-<tr><td class="rk">9</td><td><b>Boneless Kipper Fillets</b><span>Kersen</span></td><td class="rt">6<small>/10</small></td></tr>
-<tr><td class="rk">9</td><td><b>Pacific Cod Peperonata</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
-<tr><td class="rk">9</td><td><b>Smoked Coho</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
-<tr><td class="rk">12</td><td><b>Smoked Small Mackerel in Olive Oil</b><span>José Gourmet</span></td><td class="rt">4<small>/10</small></td></tr></table></section>
+<section id="all"><h2>ALL TINS, RANKED</h2><table><tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_fishwife&quot;, &quot;brand&quot;: &quot;FISHWIFE&quot;, &quot;fish&quot;: &quot;Smoked Rainbow Trout&quot;, &quot;rating&quot;: 10, &quot;photo&quot;: &quot;img/packaging/fishwife-trout.webp&quot;, &quot;url&quot;: &quot;https://eatfishwife.com/products/new-smoked-rainbow-trout-1-pack&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Rainbow Trout"><td class="rk">1</td><td><b>Smoked Rainbow Trout</b><span>Fishwife</span></td><td class="rt">10<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked King Salmon&quot;, &quot;rating&quot;: 10, &quot;photo&quot;: &quot;img/packaging/wildfish-king.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-king-salmon&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked King Salmon"><td class="rk">1</td><td><b>Smoked King Salmon</b><span>Wildfish Cannery</span></td><td class="rt">10<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_fishwife&quot;, &quot;brand&quot;: &quot;FISHWIFE&quot;, &quot;fish&quot;: &quot;Smoked Salmon&quot;, &quot;rating&quot;: 9, &quot;photo&quot;: &quot;img/packaging/fishwife-salmon.webp&quot;, &quot;url&quot;: &quot;https://eatfishwife.com/products/smoked-atlantic-salmon-1-pack&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Salmon"><td class="rk">3</td><td><b>Smoked Salmon</b><span>Fishwife</span></td><td class="rt">9<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked Sockeye&quot;, &quot;rating&quot;: 9, &quot;photo&quot;: &quot;img/packaging/wildfish-sockeye.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-sockeye&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Sockeye"><td class="rk">3</td><td><b>Smoked Sockeye</b><span>Wildfish Cannery</span></td><td class="rt">9<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_fishwife&quot;, &quot;brand&quot;: &quot;FISHWIFE&quot;, &quot;fish&quot;: &quot;Smoked Rainbow Trout with Red Chimichurri&quot;, &quot;rating&quot;: 8, &quot;photo&quot;: &quot;img/packaging/fishwife-chimichurri.webp&quot;, &quot;url&quot;: &quot;https://eatfishwife.com/products/smoked-rainbow-trout-with-chimmichurri-1-pack&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Rainbow Trout with Red Chimichurri"><td class="rk">5</td><td><b>Smoked Rainbow Trout with Red Chimichurri</b><span>Fishwife</span></td><td class="rt">8<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_traderjoes&quot;, &quot;brand&quot;: &quot;TRADER JOE&#x27;S&quot;, &quot;fish&quot;: &quot;Smoked Trout&quot;, &quot;rating&quot;: 8, &quot;photo&quot;: &quot;img/packaging/traderjoes-trout.webp&quot;, &quot;url&quot;: &quot;&quot;, &quot;button&quot;: &quot;&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Trout"><td class="rk">5</td><td><b>Smoked Trout</b><span>Trader Joe&#x27;S</span></td><td class="rt">8<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_labarca&quot;, &quot;brand&quot;: &quot;LA BARCA&quot;, &quot;fish&quot;: &quot;Octopus in Olive Oil&quot;, &quot;rating&quot;: 7, &quot;photo&quot;: &quot;img/packaging/labarca-octopus.webp&quot;, &quot;url&quot;: &quot;https://labarcaus.com/products/3-pack-octopus-in-olive-oil&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Octopus in Olive Oil"><td class="rk">7</td><td><b>Octopus in Olive Oil</b><span>La Barca</span></td><td class="rt">7<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked Black Cod in Extra Virgin Olive Oil&quot;, &quot;rating&quot;: 7, &quot;photo&quot;: &quot;img/packaging/wildfish-blackcod.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-black-cod-in-extra-virgin-olive-oil&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Black Cod in Extra Virgin Olive Oil"><td class="rk">7</td><td><b>Smoked Black Cod in Extra Virgin Olive Oil</b><span>Wildfish Cannery</span></td><td class="rt">7<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_kersen&quot;, &quot;brand&quot;: &quot;KERSEN&quot;, &quot;fish&quot;: &quot;Boneless Kipper Fillets&quot;, &quot;rating&quot;: 6, &quot;photo&quot;: &quot;img/packaging/kersen-kipper.webp&quot;, &quot;url&quot;: &quot;https://kersen.myshopify.com/products/wild-canadian-naturally-hardwood-smoked-kipper-fillets-190g-single-cans&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Boneless Kipper Fillets"><td class="rk">9</td><td><b>Boneless Kipper Fillets</b><span>Kersen</span></td><td class="rt">6<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Pacific Cod Peperonata&quot;, &quot;rating&quot;: 6, &quot;photo&quot;: &quot;img/packaging/wildfish-peperonata.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/pacific-cod-peperonata&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Pacific Cod Peperonata"><td class="rk">9</td><td><b>Pacific Cod Peperonata</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_wildfish&quot;, &quot;brand&quot;: &quot;WILDFISH CANNERY&quot;, &quot;fish&quot;: &quot;Smoked Coho&quot;, &quot;rating&quot;: 6, &quot;photo&quot;: &quot;img/packaging/wildfish-coho.webp&quot;, &quot;url&quot;: &quot;https://wildfishcannery.com/products/smoked-coho-salmon&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Coho"><td class="rk">9</td><td><b>Smoked Coho</b><span>Wildfish Cannery</span></td><td class="rt">6<small>/10</small></td></tr>
+<tr class="tin-row" data-tin="{&quot;brand_key&quot;: &quot;brand_josegourmet&quot;, &quot;brand&quot;: &quot;JOSÉ GOURMET&quot;, &quot;fish&quot;: &quot;Smoked Small Mackerel in Olive Oil&quot;, &quot;rating&quot;: 4, &quot;photo&quot;: &quot;img/packaging/jose-mackerel.webp&quot;, &quot;url&quot;: &quot;https://www.myportuguesemarket.com/products/jose-gourmet-small-mackerel-in-olive-oil&quot;, &quot;button&quot;: &quot;Reorder&quot;}" tabindex="0" role="button" aria-label="View packaging for Smoked Small Mackerel in Olive Oil"><td class="rk">12</td><td><b>Smoked Small Mackerel in Olive Oil</b><span>José Gourmet</span></td><td class="rt">4<small>/10</small></td></tr></table></section>
+<div id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+  <div class="card">
+    <button class="x" id="lb-x" aria-label="Close">×</button>
+    <img class="photo" id="lb-photo" alt="">
+    <div class="fallback" id="lb-fallback"><div class="seal" id="lb-seal">?</div><div>Packaging photo coming soon</div></div>
+    <h3 id="lb-title"></h3>
+    <div class="brand" id="lb-brand"></div>
+    <div class="rating" id="lb-rating"></div>
+    <a class="buy" id="lb-buy" href="#" target="_blank" rel="noopener noreferrer">REORDER</a>
+  </div>
+</div>
 <script>
 const leaves=[...document.querySelectorAll('.leaf')],dots=[...document.querySelectorAll('.dot')],N=leaves.length;let cur=0;
 function show(i){cur=Math.max(0,Math.min(N-1,i));leaves.forEach((l,k)=>{l.classList.toggle('turned',k<cur);
  l.style.zIndex=k<cur?k:N-k;clearTimeout(l._t);if(k<cur-1)l._t=setTimeout(()=>l.classList.add('gone'),900);else l.classList.remove('gone')});
  dots.forEach((d,k)=>d.classList.toggle('on',k==cur));prev.disabled=cur==0;next.disabled=cur==N-1;history.replaceState(null,'',cur?'#p'+cur:location.pathname)}
-const book=document.getElementById('book');let sx=null,sy=0,moved=false;
-book.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;moved=false});
+const book=document.getElementById('book');let sx=null,sy=0,skipTurn=false;
+book.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;skipTurn=!!e.target.closest('.hotspot')});
 book.addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx,dy=e.clientY-sy;
+ const onSpot=skipTurn||e.target.closest('.hotspot');sx=null;skipTurn=false;
+ if(onSpot)return;
  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))show(cur+(dx<0?1:-1));
- else if(Math.abs(dx)<10&&Math.abs(dy)<10){const r=book.getBoundingClientRect();show(cur+(e.clientX-r.left<r.width*.3?-1:1))}sx=null});
+ else if(Math.abs(dx)<10&&Math.abs(dy)<10){const r=book.getBoundingClientRect();show(cur+(e.clientX-r.left<r.width*.3?-1:1))}});
 prev.onclick=()=>show(cur-1);next.onclick=()=>show(cur+1);dots.forEach((d,k)=>d.onclick=()=>show(k));
 const viewer=document.getElementById('viewer'),fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
 let overlay=false;
@@ -102,7 +133,44 @@ function enterFs(){const r=viewer.requestFullscreen||viewer.webkitRequestFullscr
 function exitFs(){if(fsEl()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{overlay=false;setFs(false)}}
 ['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>setFs(!!fsEl()||overlay)));
 fsbtn.onclick=enterFs;fsclose.onclick=exitFs;
-addEventListener('keydown',e=>{if(e.key=='Escape'&&overlay)exitFs()});
-addEventListener('keydown',e=>{if(e.key=='ArrowRight')show(cur+1);if(e.key=='ArrowLeft')show(cur-1)});
+
+const lb=document.getElementById('lightbox'),lbPhoto=document.getElementById('lb-photo'),
+ lbFall=document.getElementById('lb-fallback'),lbSeal=document.getElementById('lb-seal'),
+ lbTitle=document.getElementById('lb-title'),lbBrand=document.getElementById('lb-brand'),
+ lbRating=document.getElementById('lb-rating'),lbBuy=document.getElementById('lb-buy');
+function parseTin(el){try{return JSON.parse(el.getAttribute('data-tin'))}catch(err){return null}}
+function openTin(meta){
+ if(!meta)return;
+ lbTitle.textContent=meta.fish||'';
+ lbBrand.textContent=meta.brand||'';
+ lbRating.innerHTML=(meta.rating!=null?meta.rating:'?')+'<small>/10</small>';
+ lbSeal.textContent=(meta.rating!=null?meta.rating:'?');
+ const hasPhoto=!!(meta.photo);
+ lbPhoto.style.display=hasPhoto?'block':'none';
+ lbFall.classList.toggle('show',!hasPhoto);
+ if(hasPhoto){
+  lbPhoto.onload=()=>{lbFall.classList.remove('show');lbPhoto.style.display='block'};
+  lbPhoto.onerror=()=>{lbPhoto.style.display='none';lbFall.classList.add('show')};
+  lbPhoto.alt=(meta.fish||'')+' packaging';
+  lbPhoto.src=meta.photo;
+ }
+ if(meta.url&&meta.button){
+  lbBuy.href=meta.url;lbBuy.textContent=meta.button.toUpperCase();lbBuy.classList.add('show');
+ }else{lbBuy.classList.remove('show');lbBuy.removeAttribute('href')}
+ lb.hidden=false;lb.classList.add('open');document.documentElement.classList.add('fslock');
+}
+function closeTin(){lb.classList.remove('open');lb.hidden=true;if(!viewer.classList.contains('fs'))document.documentElement.classList.remove('fslock')}
+document.querySelectorAll('.hotspot').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openTin(parseTin(btn))}));
+document.querySelectorAll('.tin-row').forEach(row=>{
+ row.addEventListener('click',()=>openTin(parseTin(row)));
+ row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openTin(parseTin(row))}});
+});
+lb.addEventListener('click',e=>{if(e.target===lb)closeTin()});
+document.getElementById('lb-x').onclick=closeTin;
+addEventListener('keydown',e=>{
+ if(e.key=='Escape'){if(lb.classList.contains('open')){closeTin();return}if(overlay)exitFs()}
+ if(lb.classList.contains('open'))return;
+ if(e.key=='ArrowRight')show(cur+1);if(e.key=='ArrowLeft')show(cur-1)
+});
 const m=location.hash.match(/^#p(\d+)/);show(m?+m[1]:0);
 </script></body></html>

@@ -1,0 +1,110 @@
+{
+  "brand_wildfish": [
+    {
+      "fish": "Smoked King Salmon",
+      "rating": 10,
+      "cx": 236,
+      "cy": 363.6,
+      "r": 121.0,
+      "ang": 6.66
+    },
+    {
+      "fish": "Smoked Sockeye",
+      "rating": 9,
+      "cx": 619,
+      "cy": 590,
+      "r": 121.0,
+      "ang": 6.74
+    },
+    {
+      "fish": "Smoked Coho",
+      "rating": 6,
+      "cx": 275,
+      "cy": 825,
+      "r": 121.0,
+      "ang": -4.08
+    },
+    {
+      "fish": "Pacific Cod Peperonata",
+      "rating": 6,
+      "cx": 666,
+      "cy": 1043.6,
+      "r": 121.0,
+      "ang": -6.01
+    },
+    {
+      "fish": "Smoked Black Cod in Extra Virgin Olive Oil",
+      "rating": 7,
+      "cx": 653,
+      "cy": 362.1,
+      "r": 121.0,
+      "ang": -5.84
+    }
+  ],
+  "brand_fishwife": [
+    {
+      "fish": "Smoked Rainbow Trout",
+      "rating": 10,
+      "cx": 258,
+      "cy": 364.9,
+      "r": 121.0,
+      "ang": 7.44
+    },
+    {
+      "fish": "Smoked Rainbow Trout with Red Chimichurri",
+      "rating": 8,
+      "cx": 656,
+      "cy": 579,
+      "r": 121.0,
+      "ang": 5.43
+    },
+    {
+      "fish": "Smoked Salmon",
+      "rating": 9,
+      "cx": 276,
+      "cy": 815,
+      "r": 121.0,
+      "ang": -5.93
+    }
+  ],
+  "brand_traderjoes": [
+    {
+      "fish": "Smoked Trout",
+      "rating": 8,
+      "cx": 276,
+      "cy": 357.1,
+      "r": 121.0,
+      "ang": -3.15
+    }
+  ],
+  "brand_kersen": [
+    {
+      "fish": "Boneless Kipper Fillets",
+      "rating": 6,
+      "cx": 264,
+      "cy": 358.0,
+      "r": 121.0,
+      "ang": 3.62
+    }
+  ],
+  "brand_josegourmet": [
+    {
+      "fish": "Smoked Small Mackerel in Olive Oil",
+      "rating": 4,
+      "cx": 235,
+      "cy": 363.1,
+      "r": 121.0,
+      "ang": 6.42
+    }
+  ],
+  "brand_labarca": [
+    {
+      "fish": "Octopus in Olive Oil",
+      "rating": 7,
+      "cx": 264,
+      "cy": 360.1,
+      "r": 121.0,
+      "ang": -4.73
+    }
+  ]
+}

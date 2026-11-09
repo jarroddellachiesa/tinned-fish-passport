@@ -10,6 +10,7 @@ Usage:  python3 passport.py            # pages + cover
         python3 passport.py --pages    # pages only
         python3 passport.py --cover    # cover only
         python3 passport.py --back     # back cover only
+        python3 passport.py --hotspots # export stamp_hotspots.json only
 """
 import html, json, math, os, subprocess, sys, zlib
 from PIL import ImageFont
@@ -677,8 +678,8 @@ LOGO_FILTER = '''<filter id="logoInk" x="-5%" y="-10%" width="110%" height="120%
 </filter>'''
 
 
-def place_stamp(key, name, slot, fish, r):
-    """Deterministic placement/styling for entry number `slot` of a brand."""
+def stamp_layout(key, slot, fish=None, rating=None):
+    """Return (cx, cy, r, ang, ox, oy, shape, ink, ic, hs) for a stamp slot. Geometry only."""
     hb = h32(key) % 997
     row, col = SLOT_CELL[slot % 8]
     shape = SHAPES[(slot + hb) % len(SHAPES)]
@@ -689,8 +690,12 @@ def place_stamp(key, name, slot, fish, r):
     ang = -ang if (hs >> 10) & 1 else ang
     jx = ((hs >> 11) % 57) - 28
     jy = ((hs >> 17) % 25) - 12
-    body, (bx0, by0, bx1, by1) = SHAPE_FN[shape](name, fish, r, ink, ic, f's{slot}')
-    # centre the stamp's bounding box on the slot, then clamp the rotated box inside SAFE
+    # Prefer known bbox for the active shape (avoids building SVG just for geometry).
+    if shape == 'circle':
+        R = 112
+        bx0, by0, bx1, by1 = (-R - 3, -R - 3, R + 3, R + 3)
+    else:
+        bx0, by0, bx1, by1 = SHAPE_FN[shape]('X', 'X', 0, '#000', ic, f's{slot}')[1]
     ox, oy = -(bx0 + bx1) / 2, -(by0 + by1) / 2
     cx, cy = COL_X[col] + jx, ROW_Y[row] + jy
     a = math.radians(ang)
@@ -699,11 +704,44 @@ def place_stamp(key, name, slot, fish, r):
     ry = [x * math.sin(a) + y * math.cos(a) for x, y in corners]
     cx = min(max(cx, SAFE[0] - min(rx)), SAFE[2] - max(rx))
     cy = min(max(cy, SAFE[1] - min(ry)), SAFE[3] - max(ry))
+    # clickable radius: half the longer axis of the unrotated bbox, plus a little pad
+    rr = max(bx1 - bx0, by1 - by0) / 2 + 6
+    return cx, cy, rr, ang, ox, oy, shape, ink, ic, hs, (bx0, by0, bx1, by1)
+
+
+def place_stamp(key, name, slot, fish, r):
+    """Deterministic placement/styling for entry number `slot` of a brand."""
+    cx, cy, _rr, ang, ox, oy, shape, ink, ic, hs, _bb = stamp_layout(key, slot)
+    body, _ = SHAPE_FN[shape](name, fish, r, ink, ic, f's{slot}')
     op = 0.84 + (hs % 7) / 70
     fid = f'ink{slot}'
     return (f'<defs>{ink_filter(fid, (hs % 500) + 3)}</defs>'
             f'<g style="mix-blend-mode:multiply" opacity="{op:.2f}" filter="url(#{fid})">'
             f'<g transform="translate({f(cx)} {f(cy)}) rotate({ang:.2f}) translate({f(ox)} {f(oy)})">{body}</g></g>')
+
+
+def stamp_hotspots_for_brand(key, name, items):
+    """Clickable stamp centres/radii in page pixel space (900x1250)."""
+    out = []
+    for i, (fish, r) in enumerate(items[:8]):
+        cx, cy, rr, ang, *_ = stamp_layout(key, i)
+        out.append({
+            'fish': fish, 'rating': r, 'cx': round(cx, 1), 'cy': round(cy, 1),
+            'r': round(rr, 1), 'ang': round(ang, 2),
+        })
+    return out
+
+
+def export_stamp_hotspots(data=None):
+    """Write stamp_hotspots.json next to brands.json (also called from gen.py)."""
+    if data is None:
+        data = json.load(open(os.path.join(HERE, 'brands.json')))
+    hot = {key: stamp_hotspots_for_brand(key, name, items) for key, (name, items) in data.items()}
+    path = os.path.join(HERE, 'stamp_hotspots.json')
+    with open(path, 'w') as fh:
+        json.dump(hot, fh, indent=2)
+    print('wrote', path)
+    return hot
 
 
 def visa_page(key, name, items, pageno):
@@ -924,6 +962,10 @@ def main():
     do_pages = not args or '--pages' in args or any(a.startswith('--page=') for a in args)
     do_cover = not args or '--cover' in args
     do_back = not args or '--back' in args
+    do_hotspots = '--hotspots' in args
+    if do_pages or do_hotspots or not args:
+        data = json.load(open(os.path.join(HERE, 'brands.json')))
+        export_stamp_hotspots(data)
     if do_pages:
         data = json.load(open(os.path.join(HERE, 'brands.json')))
         only = [a.split('=', 1)[1] for a in sys.argv[1:] if a.startswith('--page=')]
